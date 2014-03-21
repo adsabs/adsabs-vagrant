@@ -10,6 +10,11 @@ options = {}
 options[:adsabs_source] = ENV['VAGRANT_ADSABS_SOURCE'] || 'http://github.com/adsabs/adsabs.git'
 options[:adsabs_revision] = ENV['VAGRANT_ADSABS_REVISION'] || 'master'
 
+puts "NOTICE:"
+puts "Beer will be cloned from #{options[:adsabs_source]} (#{options[:adsabs_revision]})"
+puts "This can be changed by setting VAGRANT_ADSABS_SOURCE and VAGRANT_ADSABS_REVISION"
+puts ""
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.

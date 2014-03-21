@@ -40,3 +40,5 @@ venv
 
 adsabs/
 adsabs-fabric/
+
+Vagrantfile
