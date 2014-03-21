@@ -28,11 +28,16 @@ class stage_2 {
 
 class stage_1 {
 
+  user {'vagrant':
+    ensure      => present,
+  }
+
   file {"/proj/":
     ensure      => directory,
     recurse     => false,
     owner       => vagrant,
     group       => vagrant,
+    require     => User['vagrant'],
   }
 
 
@@ -41,24 +46,45 @@ class stage_1 {
     recurse     => false,
     owner       => vagrant,
     group       => vagrant,
-    require     => File["/proj/"];
+    require     => File["/proj/"]; #Alternatvively, use `exec {'mkdir -p /path/to/foo/': }`
   }
 
-  exec { 'initial_apt_update':
-    command   => 'apt-get update && touch /etc/apt-updated-by-puppet',
-    creates   => '/etc/apt-updated-by-puppet',
-  }  
+  class initial_apt_update {
+    exec {'update':
+      command   => 'apt-get update && touch /etc/apt-updated-by-puppet',
+      creates   => '/etc/.apt-updated-by-puppet',
+    }
 
+    exec {'add_keyserver':
+      command   => 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10',
+      creates   => '/etc/.apt-key-updated-by-puppet',
+      require   =>  Exec['update'],
+    }
+
+    exec {'add_10gen':
+      command   => "echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list",
+      creates   => '/etc/apt/sources.list.d/10gen.list',
+      require   => Exec['add_keyserver'],
+    }
+
+    exec {'final_update':
+      command   => 'apt-get update',
+      require   => Exec['add_10gen'],
+    }
+
+  }
+  
+  include initial_apt_update
   package { ['rubygems','ruby-dev','puppet','git',
               'nginx','python-pip','libmysqlclient-dev',
-              'python-dev','build-essential','libxml2-dev','libxslt-dev']:
+              'python-dev','build-essential','libxml2-dev','libxslt-dev','mongodb-10gen']:
     ensure    => installed,
-    require   => Exec['initial_apt_update'];
+    require   => Class['initial_apt_update'];
   }
 
   package { ['ipython','mtr','locate','nano','host','psmisc']: #Convenience packages, not mission critical
     ensure     => installed,
-    require    => Exec['initial_apt_update'];
+    require    => Class['initial_apt_update'];
   }
 
   package { 'librarian_puppet':

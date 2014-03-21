@@ -6,7 +6,7 @@ forge "http://forge.puppetlabs.com"
 mod 'puppetlabs/stdlib'
 mod 'jfryman/nginx'
 mod 'puppetlabs/vcsrepo'
-mod 'thias/mongodb'
+#mod 'thias/mongodb'
 mod 'thomasvandoren/redis'
 
 # mod 'ntp',
