@@ -29,7 +29,7 @@ exec {'pip_install_deps':
 
 nginx::resource::vhost { 'labs':
   ensure    => present,
-  listen_port    => "8000 default_server",
+  listen_port    => 8000,
   proxy     => 'http://gunicorn',
 }
 
