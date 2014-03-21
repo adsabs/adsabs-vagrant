@@ -96,6 +96,12 @@ class stage_1 {
     require   => Class['initial_apt_update'];
   }
 
+  service {'mongodb':
+    enable    => false,
+    ensure    => stopped,
+    require   => Class['initial_apt_update'];
+  }
+
   package { ['ipython','mtr','locate','nano','host','psmisc']: #Convenience packages, not mission critical
     ensure     => installed,
     require    => Class['initial_apt_update'];
