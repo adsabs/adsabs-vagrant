@@ -67,15 +67,29 @@ class stage_1 {
       require   => Exec['add_keyserver'],
     }
 
+    exec {'add_puppetlabs_repo':
+      command   => 'wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb --no-check-certificate && dpkg -i puppetlabs-release-precise.deb',
+      cwd       => '/root',
+      creates   => '/root/puppetlabs-release-precise.deb',
+    }
+
+    package {'puppet':
+      ensure    => latest,
+      require   => Exec['final_update'],
+    }
+#RUN wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb --no-check-certificate
+#RUN dpkg -i puppetlabs-release-precise.deb
+#RUN apt-get install -y puppet
+
     exec {'final_update':
       command   => 'apt-get update',
-      require   => Exec['add_10gen'],
+      require   => [Exec['add_10gen'],Exec['add_puppetlabs_repo'],]
     }
 
   }
   
   include initial_apt_update
-  package { ['rubygems','ruby-dev','puppet','git',
+  package { ['rubygems','ruby-dev','git',
               'nginx','python-pip','libmysqlclient-dev',
               'python-dev','build-essential','libxml2-dev','libxslt-dev','mongodb-10gen']:
     ensure    => installed,
