@@ -18,6 +18,6 @@ How-to:
   3. Log into the VM:
          vagrant ssh
   4. Provision application (requires protected github access+seekret password)
-         ./proj/ads/app_deploy_script.sh
+         cd /proj/ads/ && ./app_deploy_script.sh
   
 The application is by default served by gunicorn+nginx on :8000. A flask devel server (:5000) may also be started via `shell.py`
