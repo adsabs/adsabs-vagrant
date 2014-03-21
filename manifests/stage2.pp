@@ -10,7 +10,8 @@ vcsrepo {"/proj/ads/adsabs":
   ensure        => latest,
   provider      => git,
   user          => vagrant,
-  source        => "https://github.com/vsudilov/adsabs.git";
+  source        => $adsabs_source,
+  revision      => $adsabs_revision,
 }
 
 # vcsrepo {"/vagrant/adsabs-fabric": #WARNING: This actually returns success even if it can't clone due to auth problems!!!

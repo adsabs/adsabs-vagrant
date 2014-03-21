@@ -4,6 +4,10 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+options = {}
+options[:adsabs_source] = ENV['VAGRANT_ADSABS_SOURCE'] || 'http://github.com/adsabs/adsabs.git'
+options[:adsabs_revision] = ENV['VAGRANT_ADSABS_REVISION'] || 'master'
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
@@ -49,6 +53,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision :puppet do |puppet|
       puppet.manifests_path = "manifests"
       puppet.manifest_file  = "site.pp"
+      puppet.facter = {
+        "adsabs_source" => options[:adsabs_source],
+        "adsabs_revision" => options[:adsabs_revision]
+      }
     end
 
 
