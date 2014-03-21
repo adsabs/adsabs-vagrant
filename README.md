@@ -5,8 +5,8 @@ Spin up a complete dev environment for working with the ADS application layer. N
 
 Requirements: 
 
-  * (Virtualbox provider) [Vagrant](http://vagrantup.com/) (>=1.4.3) + Virtualbox
-  * (lxc provider) [Vagrant](http://vagrantup.com/) (==1.4.3) + [vagrant-lxc](https://github.com/fgrehm/vagrant-lxc) (0.7.0 or 0.8.0)
+  * (Virtualbox provider) [Vagrant](http://vagrantup.com/) (>=1.5) + Virtualbox
+  * (lxc provider) __not yet fully supported__ [Vagrant](http://vagrantup.com/) (>1.5) + [vagrant-lxc](https://github.com/fgrehm/vagrant-lxc) (>0.8.0)
 
 
 How-to:
