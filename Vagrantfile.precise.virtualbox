@@ -64,5 +64,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       }
     end
 
+  config.vm.provision "docker" do |docker|
+    docker.build_image "/vagrant/dockerfiles/mongo",
+      args: "-rm -t ads/mongo"
+    docker.run "ads/mongo",
+      args: "--name mongo -p 27017:27017",
+      daemonize: true
+  end
+
 
 end
