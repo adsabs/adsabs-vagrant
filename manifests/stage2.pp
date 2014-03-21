@@ -47,7 +47,13 @@ file {'app_deploy_script':
   mode      => "700",
   content   => "
 #!/bin/bash
+git config --global credential.helper 'cache --timeout 120'
 [ -d adsabs-fabric ] || git clone -b vss https://github.com/adsabs/adsabs-fabric.git
+[ -d adsabs-stubdata ] || git clone https://github.com/adsabs/adsabs-stubdata.git
 fab -f adsabs-fabric/fabfile local init
-sudo fab -f adsabs-fabric/fabfile local run_production",
+sudo fab -f adsabs-fabric/fabfile local run_production
+
+#Let's remember to wrap this in either adsabs-fabric and/or adsabs-stubdata
+mongorestore --host localhost --port 27017 /proj/ads/adsabs-stubdata/dump/mongo
+"
 }
