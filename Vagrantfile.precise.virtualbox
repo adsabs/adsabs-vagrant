@@ -26,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 2
+    v.memory = 4096
+    v.cpus = 4
   end
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -57,9 +57,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "docker" do |docker|
     docker.build_image "/vagrant/dockerfiles/mongo",
-      args: "-rm -t ads/mongo"
+      args: "-t ads/mongo"
     docker.run "ads/mongo",
       args: "--name mongo -p 27017:27017",
+      daemonize: true
+  end
+
+  config.vm.provision "docker" do |docker|
+    docker.build_image "/vagrant/dockerfiles/montysolr",
+      args: "-t ads/montysolr"
+    docker.run "ads/montysolr",
+      args: "--name montysolr -p 3000:3000",
       daemonize: true
   end
 
