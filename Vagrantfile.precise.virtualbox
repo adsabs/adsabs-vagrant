@@ -26,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/ubuntu-12.04.3-amd64-vbox.box"
 
   config.vm.provider "virtualbox" do |v|
-    v.memory = 4096
-    v.cpus = 4
+    v.memory = 2048
+    v.cpus = 2
   end
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -67,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     docker.build_image "/vagrant/dockerfiles/montysolr",
       args: "-t ads/montysolr"
     docker.run "ads/montysolr",
-      args: "--name montysolr -p 3000:3000",
+      args: "--name montysolr -p 9000:9000",
       daemonize: true
   end
 
