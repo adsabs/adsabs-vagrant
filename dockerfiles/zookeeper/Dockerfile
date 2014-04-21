@@ -6,10 +6,8 @@ ENV LC_ALL en_US.UTF-8
 RUN wget -q -O /opt/zookeeper-3.4.6.tar.gz http://apache.mirrors.pair.com/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
 RUN tar -xzf /opt/zookeeper-3.4.6.tar.gz -C /opt
 
-RUN adduser vagrant --no-create-home --disabled-password --gecos ""
 ADD zoo.cfg /opt/zookeeper-3.4.6/conf/zoo.cfg
 ADD myid /zookeeper/myid
-RUN chown -R vagrant:vagrant /zookeeper
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 #ENV JAVA_OPTS "-Xms256m -Xmx512m" #Set default java heap size, very important for good performance

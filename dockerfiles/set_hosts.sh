@@ -18,7 +18,7 @@ function dip() { docker inspect $1 | grep IPAddress | cut -d '"' -f 4 ; }
 cat /etc/hosts | grep -v '#DOCKER-DELETE-ME' > /etc/hosts.docker.tmp
 RESULT="$?"
 if [ ${RESULT} = 0 ]; then
-echo "Checking for running docker containers..."
+echo "Checking for running docker contadoiners..."
 else
 echo "Error modifying /etc/hosts, try running with sudo."
 exit 1
@@ -31,7 +31,7 @@ docker ps | awk '{print $1}' | while read CONTAINERID
 do
 IP=$(dip ${CONTAINERID})
 if [ -n "${IP}" ] ; then
-NAME=$(docker inspect ${CONTAINERID} | grep Name | cut -d '"' -f 4 | sed 's#^/##g')
+NAME=$(docker inspect ${CONTAINERID} | grep Name | cut -d '"' -f 4 | sed 's#^/##g' | tr -d '\n')
 echo "${IP} ${NAME} #DOCKER-DELETE-ME" >> /etc/hosts.docker.tmp
 fi
 done

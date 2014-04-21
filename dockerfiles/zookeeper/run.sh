@@ -26,4 +26,4 @@ for ZK_ID in 1 2 3; do
   # p=$p1
 done
 
-./set_hosts.sh
+sudo .././set_hosts.sh
