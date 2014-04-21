@@ -64,13 +64,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       daemonize: true
   end
 
-  config.vm.provision "docker" do |docker|
-    docker.build_image "/vagrant/dockerfiles/montysolr",
-      args: "-t adsabs/montysolr"
-    docker.run "adsabs/montysolr",
-      args: "--name montysolr -p 9000:9000",
-      daemonize: true
-  end
+#  config.vm.provision "docker" do |docker|
+#    docker.build_image "/vagrant/dockerfiles/montysolr",
+#      args: "-t adsabs/montysolr"
+#    docker.run "adsabs/montysolr",
+#      args: "--name montysolr -p 9000:9000",
+#      daemonize: true
+#  end
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
