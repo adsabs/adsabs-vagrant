@@ -18,7 +18,4 @@ ENV JMXDISABLE true
 EXPOSE 2181 
 EXPOSE 2888 3888
 
-ADD supervisord.conf /etc/supervisor/supervisord.conf
-#CMD ["/usr/bin/supervisord"]
-ENTRYPOINT ["/opt/zookeeper-3.4.6/bin/zkServer.sh"]
-CMD ["start-foreground"]
+CMD ["/opt/zookeeper-3.4.6/bin/zkServer.sh","start-foreground"]

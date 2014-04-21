@@ -91,7 +91,8 @@ class stage_1 {
   include initial_apt_update
   package { ['rubygems','ruby-dev','git',
               'nginx','python-pip','libmysqlclient-dev',
-              'python-dev','build-essential','libxml2-dev','libxslt-dev','mongodb-10gen']:
+              'python-dev','build-essential','libxml2-dev','libxslt-dev','mongodb-10gen',
+              'dnsmasq-base']:
     ensure    => installed,
     require   => Class['initial_apt_update'];
   }
