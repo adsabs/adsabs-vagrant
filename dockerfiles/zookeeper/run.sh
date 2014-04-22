@@ -13,6 +13,7 @@ for ZK_ID in 1 2 3; do
   else
     docker run -d --name zookeeper$ZK_ID --dns $dns adsabs/zookeeper$ZK_ID
   fi
+  docker start zookeeper$ZK_ID
   rm myid
 done
 
