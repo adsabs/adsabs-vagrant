@@ -2,7 +2,7 @@
 
 dns=`ip addr show eth0 | grep inet | grep eth0 | awk '{print $2}' | cut -d "/" -f -1`
 docker build -t adsabs/solr .
-for id in 1 2; do
+for id in 1 2 3 4 5; do
   docker run -d -p $((8982+id)):8983 --name solr$id --dns $dns adsabs/solr
 done
 
