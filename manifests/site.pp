@@ -115,6 +115,11 @@ class stage_1 {
     target    => '/vagrant/Puppetfile';
   }
 
+  exec {'remove_startup_services':
+    command => 'update-rc.d -f mongodb remove',
+    require => Package['mongodb-10gen'],
+  }
+
   exec { 'librarian_puppet_install':
     command   => 'librarian-puppet install',
     cwd       => '/etc/puppet',
