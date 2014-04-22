@@ -42,6 +42,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         #beer devel server
       config.vm.network :forwarded_port, guest: 5000, host: 5000
 
+
+        #This allows the guest machine to access the host directly via the IP address 192.168.50.1
+        #For example, if you want to tunnel traffic to solr:9000, simply create the tunnel on the host
+        #and change the local_config.py SOLRQUERY_URL to point to 192.168.50.1:9000
+      config.vm.network "private_network", ip: "192.168.50.4"
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
@@ -49,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  # config.vm.network :public_network
+   #config.vm.network :public_network
 
   # If true, then any SSH connections made will enable agent forwarding.
   # Default value: false
