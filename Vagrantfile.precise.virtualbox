@@ -44,8 +44,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
         #This allows the guest machine to access the host directly via the IP address 192.168.50.1
-        #For example, if you want to tunnel traffic to solr:9000, simply create the tunnel on the host
-        #and change the local_config.py SOLRQUERY_URL to point to 192.168.50.1:9000
+        #If you want to connect to solr:9000 from the guest, do the following:
+        # set up tunnels on host
+        # set up tunnels on VM to host (ssh -N -f -L 9000:localhost:9000 user@192.168.50.1)
+        # localhost:9000 on both host and VM now point to solr:9000
       config.vm.network "private_network", ip: "192.168.50.4"
 
   # Create a private network, which allows host-only access to the machine
