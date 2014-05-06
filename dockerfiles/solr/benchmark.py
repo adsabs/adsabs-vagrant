@@ -83,7 +83,7 @@ def ingest(args,curl_args=[
   P = subprocess.Popen(' '.join(cmd),shell=True)
   P.wait()
 
-def globalPlot(dirs=['t2','t3','t4','t5'],concurrencies=[1,2,3,4]):
+def globalPlot(dirs=['t2','t3','t4','t5','t6'],concurrencies=[1,2,3,4]):
   results = {}
   fig = plt.figure()
   ax = fig.gca()

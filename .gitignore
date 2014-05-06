@@ -10,3 +10,8 @@ Vagrantfile
 myid
 
 *.json
+
+t?/
+
+*.png
+*.sqlite
