@@ -1,15 +1,26 @@
 #!/bin/bash
 
-dns=`ip addr show eth0 | grep inet | grep eth0 | awk '{print $2}' | cut -d "/" -f -1`
-docker build -t adsabs/solr .
-for id in 1 2 3 4; do
-  docker run -d -p $((8982+id)):8983 --name solr$id --dns $dns adsabs/solr
-  docker start solr$id
-done
+#If this script is run in the AWS environment, H will be set by the provisioner. Do not set it manually.
+H=""
 
-#Assign container ips to host's /etc/hosts, then restart
-sudo .././set_hosts.sh
-for id in 1 2 3 4; do
-  docker stop solr$id
-  docker start solr$id
-done
+if [ -z "$H" ]
+then
+java \
+  -DnumShards=2 \
+  -Dsolr.solr.home=/opt/solr-4.8.0/example/solr \
+  -Djetty.home=/opt/solr-4.8.0/example \
+  -Dbootstrap_confdir=/opt/solr-4.8.0/example/solr/collection1/conf \
+  -Dcollection.configName=foobar \
+  -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
+  -jar /opt/solr-4.8.0/example/start.jar
+else
+java \
+  -Dhost=$H
+  -DnumShards=2 \
+  -Dsolr.solr.home=/opt/solr-4.8.0/example/solr \
+  -Djetty.home=/opt/solr-4.8.0/example \
+  -Dbootstrap_confdir=/opt/solr-4.8.0/example/solr/collection1/conf \
+  -Dcollection.configName=foobar \
+  -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
+  -jar /opt/solr-4.8.0/example/start.jar
+fi
