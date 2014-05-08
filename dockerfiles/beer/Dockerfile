@@ -8,12 +8,13 @@ RUN wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb --no-check-ce
 RUN dpkg -i puppetlabs-release-precise.deb
 RUN apt-get update
 RUN apt-get install -y puppet git
-RUN mkdir /vagrant/
-RUN git clone https://github.com/adsabs/adsabs-vagrant /vagrant/
+RUN mkdir -r /vagrant/manifests/
+ADD manifests/* /vagrant/manifests/
 
 #Application provisioning
 RUN puppet apply /vagrant/manifests/site.pp
 
+ADD local_config.py /proj/ads/adsabs/config/
 EXPOSE 8000
 
 #Supervisord will take care of keeping services up (nginx+gunicorn)
