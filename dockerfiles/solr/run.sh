@@ -15,7 +15,7 @@ java \
   -jar /opt/solr-4.8.0/example/start.jar
 else
 java \
-  -Dhost=$H
+  -Dhost=$H \
   -DnumShards=2 \
   -Dsolr.solr.home=/opt/solr-4.8.0/example/solr \
   -Djetty.home=/opt/solr-4.8.0/example \
