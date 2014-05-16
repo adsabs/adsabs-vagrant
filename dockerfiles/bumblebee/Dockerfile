@@ -7,6 +7,7 @@ ENV LC_ALL en_US.UTF-8
 RUN add-apt-repository ppa:chris-lea/node.js
 RUN apt-get update && apt-get install -y nodejs
 
+ADD .cache_invalidation /
 RUN git clone https://github.com/adsabs/bumblebee /bumblebee
 ADD local-config.json /bumblebee/
 RUN sed -i "s/localhost/`netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'`/g" /bumblebee/local-config.json
