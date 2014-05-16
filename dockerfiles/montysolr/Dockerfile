@@ -2,7 +2,7 @@ FROM     ubuntu:precise
 
 #Bootstrap from minimal base machine
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
-RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise-updates main restricted" >> /etc/apt/sources.list
+#RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise-updates main restricted" >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y wget build-essential python-dev subversion libxml2-dev libxslt-dev libatlas-base-dev python-pip ant git libmysqlclient-dev language-pack-en-base supervisor
 RUN update-locale LC_ALL=en_US.UTF-8
