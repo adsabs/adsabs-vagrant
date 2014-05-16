@@ -1,7 +1,7 @@
 FROM ubuntu:precise
 
 RUN apt-get update
-RUN apt-get install -y python-software-properties software-properties-common git supervisor bzip2 language-pack-en-base
+RUN apt-get install -y python-software-properties software-properties-common git supervisor bzip2 language-pack-en-base net-tools
 RUN update-locale LC_ALL=en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 RUN add-apt-repository ppa:chris-lea/node.js
