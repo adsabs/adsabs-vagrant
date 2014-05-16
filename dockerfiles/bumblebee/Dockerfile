@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y nodejs
 RUN git clone https://github.com/adsabs/bumblebee /bumblebee
 ADD local-config.json /bumblebee/
 ENV H `netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'`
-RUN sed -i 's/localhost/$H/g' /bumblebee/local-config.json
+RUN sed -i "s/localhost/$H/g" /bumblebee/local-config.json
 RUN npm install -g grunt-cli
 RUN cd bumblebee && npm install && grunt setup
 
