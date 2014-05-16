@@ -1,15 +1,16 @@
 FROM     ubuntu:precise
 
 #Bootstrap from minimal base machine
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+#RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install wget supervisor -y
 RUN wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb --no-check-certificate
 RUN dpkg -i puppetlabs-release-precise.deb
 RUN apt-get update
 RUN apt-get install -y puppet git
-RUN mkdir -r /vagrant/manifests/
-ADD manifests/* /vagrant/manifests/
+RUN mkdir -p /vagrant/manifests/
+ADD manifests/ /vagrant/manifests/
+ADD Puppetfile /vagrant/
 
 #Application provisioning
 RUN puppet apply /vagrant/manifests/site.pp
