@@ -1,7 +1,8 @@
 #!/bin/bash
 
-#If this script is run in the AWS environment, H will be set by the provisioner. Do not set it manually.
+#If this script is run in the AWS environment, H and shardID will be set by the provisioner. Do not set these manually.
 H=""
+shardId=""
 
 if [ -z "$H" ]
 then
@@ -16,6 +17,7 @@ java \
 else
 java \
   -Dhost=$H \
+  -shardId=$shardId
   -DnumShards=2 \
   -Dsolr.solr.home=/opt/solr-4.8.0/example/solr \
   -Djetty.home=/opt/solr-4.8.0/example \
