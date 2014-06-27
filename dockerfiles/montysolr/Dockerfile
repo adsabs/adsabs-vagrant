@@ -1,26 +1,19 @@
-FROM     ubuntu:precise
+FROM ubuntu:precise
 
-#Bootstrap from minimal base machine
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
-#RUN echo "deb http://us.archive.ubuntu.com/ubuntu/ precise-updates main restricted" >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get install -y wget build-essential python-dev subversion libxml2-dev libxslt-dev libatlas-base-dev python-pip ant git libmysqlclient-dev language-pack-en-base supervisor
-RUN update-locale LC_ALL=en_US.UTF-8
+RUN apt-get update && apt-get install -y openjdk-7-jdk ant wget nano supervisor language-pack-en-base subversion git
+RUN update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
+RUN update-alternatives --set javac /usr/lib/jvm/java-7-openjdk-amd64/bin/javac
 ENV LC_ALL en_US.UTF-8
-RUN pip install pip --upgrade
 
-#Java needs access to host's /dev/fuse in a postinit script
-RUN fakeroot apt-get install -y openjdk-7-jdk
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
+ENV ANT_HOME /usr/share/ant
 
-#Bootstrap montysolr with updatemontysolr.py
-RUN mkdir -p /var/lib/montysolr
-RUN git clone https://github.com/vsudilov/montysolr.git /var/lib/montysolr/
-RUN ln -s /var/lib/montysolr/contrib/examples/src/python/montysolrupdate.py /montysolrupdate.py
-RUN python montysolrupdate.py --no-virtualenv -p -j -y
-RUN python montysolrupdate.py --no-virtualenv -u -c live-9000
+RUN git clone -b master-next https://github.com/romanchyla/montysolr.git /montysolr
+RUN cd /montysolr && ant ivy-bootstrap && ant build-all
 
-EXPOSE 9000
+EXPOSE 8983
 
 #Supervisord will take care of keeping services up
 ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD run.sh /montysolr/build/contrib/examples/adsabs/run.sh
 CMD ["/usr/bin/supervisord"]

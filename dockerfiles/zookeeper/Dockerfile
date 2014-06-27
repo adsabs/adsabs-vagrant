@@ -7,6 +7,7 @@ RUN wget -q -O /opt/zookeeper-3.4.6.tar.gz http://apache.mirrors.pair.com/zookee
 RUN tar -xzf /opt/zookeeper-3.4.6.tar.gz -C /opt
 
 ADD zoo.cfg /opt/zookeeper-3.4.6/conf/zoo.cfg
+ADD zookeeper-env.sh /opt/zookeeper-3.4.6/conf/zookeeper-env.sh
 ADD myid /zookeeper/myid
 
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
