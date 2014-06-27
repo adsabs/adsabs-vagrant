@@ -17,7 +17,8 @@ java \
 else
 java \
   -Dhost=$H \
-  -shardId=$shardId
+  -shardId=$shardId \
+  -Dsolr.data.dir=/data \
   -DnumShards=2 \
   -Dsolr.solr.home=/opt/solr-4.8.0/example/solr \
   -Djetty.home=/opt/solr-4.8.0/example \
