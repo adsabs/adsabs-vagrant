@@ -23,6 +23,7 @@ java \
   -Dbootstrap_confdir=$HOMEDIR/solr/collection1/conf \
   -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
+  -Djute.maxbuffer=500000000 \
   -jar start.jar
 else
 java \
@@ -36,5 +37,6 @@ java \
   -Dbootstrap_confdir=$HOMEDIR/solr/collection1/conf \
   -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
+  -Djute.maxbuffer=500000000 \
   -jar start.jar
 fi

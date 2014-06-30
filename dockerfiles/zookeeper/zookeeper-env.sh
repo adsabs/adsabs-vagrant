@@ -1,1 +1,1 @@
-JVMFLAGS="$JVMFLAGS -Djute.maxbuffer=50000000"
+JVMFLAGS="$JVMFLAGS -Djute.maxbuffer=100000000"
