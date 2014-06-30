@@ -14,7 +14,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 #ENV JAVA_OPTS "-Xms256m -Xmx512m" #Set default java heap size, very important for good performance
 ENV JMXDISABLE true
 
-EXPOSE 2181 
-EXPOSE 2888 3888
+EXPOSE 2181 2888 3888
 
-CMD ["/opt/zookeeper-3.4.6/bin/zkServer.sh","start-foreground"]
+ADD supervisord.conf /etc/supervisor/supervisord.conf
+ADD zk.sh /zk.sh
+CMD ["/usr/bin/supervisord"]
+#CMD ["/opt/zookeeper-3.4.6/bin/zkServer.sh","start-foreground"]
