@@ -18,6 +18,7 @@ then
 java \
   -DnumShards=2 \
   -Dsolr.solr.home=$HOMEDIR/solr \
+  -Dsolr.data.dir=/data \
   -Dpython.path=$JYTHONPATH \
   -Djetty.home=$HOMEDIR \
   -Dbootstrap_confdir=$HOMEDIR/solr/collection1/conf \

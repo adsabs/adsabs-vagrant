@@ -9,6 +9,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 ENV ANT_HOME /usr/share/ant
 
 RUN git clone -b master-next https://github.com/romanchyla/montysolr.git /montysolr
+RUN mkdir /data
+ADD solrIndex.tar.gz /solrIndex.tar.gz
+RUN mv /solrIndex.tar.gz/var/lib/jenkins/jenkins/workspace/09-MONTYSOLR-ads-live/adsabs/solr/data/* /data/
+ADD PersistingMapTokenFilterFactory.java /montysolr/contrib/adsabs/src/java/org/apache/solr/analysis/PersistingMapTokenFilterFactory.java
 RUN cd /montysolr && ant ivy-bootstrap && ant build-all
 
 EXPOSE 8983
