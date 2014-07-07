@@ -7,8 +7,6 @@ for id in 1 2 3 4; do
   docker start solr$id
 done
 
-#Assign container ips to host's /etc/hosts, then restart
-sudo .././set_hosts.sh
 for id in 1 2 3 4; do
   docker stop solr$id
   docker start solr$id
