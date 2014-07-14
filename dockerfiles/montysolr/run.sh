@@ -3,6 +3,9 @@
 #If this script is run in the AWS environment, H and shardID will be set by the provisioner. Do not set these manually.
 H=""
 shardId=""
+#Dedicate 80% of the physical ram to the java heap
+ram=`awk '/MemTotal/{print $2}' /proc/meminfo`
+xmx=`python -c "print int($ram/1024.0*0.80)"`
 
 HOMEDIR=/montysolr/build/contrib/examples/adsabs          
 export PYTHONPATH=/montysolr/build/dist:/montysolr/src/python:
@@ -16,6 +19,7 @@ export JYTHONPATH=$HOMEDIR/jython
 if [ -z "$H" ]
 then
 java \
+  -Xmx${xmx}m \
   -DnumShards=2 \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dsolr.data.dir=/data \
@@ -28,6 +32,7 @@ java \
   -jar start.jar
 else
 java \
+  -Xmx${xmx}m \
   -Dhost=$H \
   -DshardId=$shardId \
   -Dsolr.data.dir=/data \
