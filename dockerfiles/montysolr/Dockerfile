@@ -1,6 +1,7 @@
 FROM ubuntu:precise
 
-RUN apt-get update && apt-get install -y openjdk-7-jdk ant wget nano supervisor language-pack-en-base subversion git
+RUN apt-get update && apt-get install -y wget nano supervisor language-pack-en-base subversion git
+RUN apt-get install -y --no-install-recommends openjdk-7-jdk ant
 RUN update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 RUN update-alternatives --set javac /usr/lib/jvm/java-7-openjdk-amd64/bin/javac
 ENV LC_ALL en_US.UTF-8
