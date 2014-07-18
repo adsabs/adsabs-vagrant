@@ -35,6 +35,7 @@ java \
   -Xmx${xmx}m \
   -Dhost=$H \
   -DshardId=$shardId \
+  -Dshard=$shardId \
   -Dsolr.data.dir=/data \
   -DnumShards=2 \
   -Dsolr.solr.home=$HOMEDIR/solr \
