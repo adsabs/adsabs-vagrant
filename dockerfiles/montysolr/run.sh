@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #If this script is run in the AWS environment, H and shardID will be set by the provisioner. Do not set these manually.
-H=montysolr1
-shardId=2
+H=""
+shardId=""
 #Dedicate 80% of the physical ram to the java heap
 ram=`awk '/MemTotal/{print $2}' /proc/meminfo`
 xmx=`python -c "print int($ram/1024.0*0.60)"`
