@@ -22,7 +22,7 @@ then
 java \
   -Xmx${xmx}m \
   -Xms${xms}m \
-  -DnumShards=2 \
+  -DnumShards=1 \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dsolr.data.dir=/data \
   -Dpython.path=$JYTHONPATH \
