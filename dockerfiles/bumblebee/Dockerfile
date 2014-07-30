@@ -12,7 +12,9 @@ RUN git clone https://github.com/adsabs/bumblebee /bumblebee
 ADD local-config.json /bumblebee/
 RUN sed -i "s/localhost/`netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'`/g" /bumblebee/local-config.json
 RUN npm install -g grunt-cli
-RUN cd bumblebee && npm install && grunt setup
+RUN cd bumblebee && npm install
+RUN cd bumblebee && grunt setup
+RUN ln -s /bumblebee/src/discovery.vars.js.default /bumblebee/src/discovery.vars.js
 
 EXPOSE 80
 
