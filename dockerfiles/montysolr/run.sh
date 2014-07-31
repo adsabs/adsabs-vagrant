@@ -40,7 +40,7 @@ java \
   -DshardId=$shardId \
   -Dshard=$shardId \
   -Dsolr.data.dir=/data \
-  -DnumShards=2 \
+  -DnumShards=1 \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dpython.path=$JYTHONPATH \
   -Djetty.home=$HOMEDIR \
