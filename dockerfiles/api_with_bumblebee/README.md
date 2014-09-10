@@ -7,7 +7,15 @@
 
 `docker build -t adsabs/api_with_bumblebee .`
 
-(interactive inside the container) `docker run -t -i adsabs/api_with_bumblbee bash `
+`docker run -d --name MY_CONTAINER -p 8001:8001 -p 5000:5000 adsabs/api_with_bumblebee`
+
+`docker stop MY_CONTAINER`
+
+`docker start MY_CONTAINER`
+
+`docker rm MY_CONTAINER`
+
+(interactive inside the container) `docker run -t -i adsabs/api_with_bumblebee bash `
 
 or, if the build broke at a certain point:
 
