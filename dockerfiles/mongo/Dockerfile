@@ -5,10 +5,11 @@ RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
 
 # Install MongoDB
 RUN apt-get update
-RUN apt-get install mongodb-10gen
+RUN apt-get install -y mongodb-org numactl
 
 # Create the MongoDB data directory
 RUN mkdir -p /data/db
+VOLUME /data/
 
 EXPOSE 27017
-CMD ["/usr/bin/mongod"]
+CMD ["numactl","--interleave=all","/usr/bin/mongod"]
