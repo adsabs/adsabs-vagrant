@@ -1,22 +1,11 @@
-FROM     ubuntu:precise
+FROM     ubuntu:14.04
 
-#Bootstrap from minimal base machine
-#RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install wget supervisor -y
-RUN wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb --no-check-certificate
-RUN dpkg -i puppetlabs-release-precise.deb
-RUN apt-get update
-RUN apt-get install -y puppet git
-RUN mkdir -p /vagrant/manifests/
-ADD manifests/ /vagrant/manifests/
-ADD Puppetfile /vagrant/
+RUN apt-get install -y git nano curl wget supervisor nginx gunicorn python-dev python-pip libxml2-dev libxslt1-dev python-lxml
+RUN pip install --upgrade pip
 
-#Application provisioning
-RUN puppet apply /vagrant/manifests/site.pp
-
-ADD local_config.py /proj/ads/adsabs/config/
-EXPOSE 8000
+RUN git clone https://github.com/vsudilov/adsabs
+RUN cd /adsabs && pip install -r requirements.txt
 
 #Supervisord will take care of keeping services up (nginx+gunicorn)
 ADD supervisord.conf /etc/supervisor/supervisord.conf
