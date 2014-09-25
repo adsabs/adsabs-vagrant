@@ -18,5 +18,5 @@ RUN sed -i "s/localhost/`netstat -nr | grep '^0\.0\.0\.0' | awk '{print $2}'`/g"
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD bumblebee.nginx.conf /etc/nginx/sites-enabled/
 
-ADD discovery.vars.js /bumblebee/src/discovery.vars.js
+#ADD discovery.vars.js /bumblebee/src/discovery.vars.js
 CMD ["/usr/bin/supervisord"]
