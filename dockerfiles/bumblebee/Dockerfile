@@ -3,7 +3,9 @@ FROM ubuntu:trusty
 RUN apt-get update
 RUN apt-get install -y git supervisor bzip2 net-tools puppet curl nano nginx
 
-RUN git clone https://github.com/adsabs/bumblebee
+RUN git clone -b vss-deploy https://github.com/adsabs/bumblebee
+ADD shim.html /bumblebee/src/shim.html
+ADD discovery.vars.js.default /bumblebee/src/discovery.vars.js.default
 RUN puppet apply /bumblebee/manifests/site.pp
 
 #Supervisord will take care of keeping services up
