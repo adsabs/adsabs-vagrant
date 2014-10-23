@@ -1,49 +1,34 @@
-import os
-
-_basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-
 class LocalConfig(object):
-
+    SECRET_KEY = "fake"
     DEBUG = False
-    SECRET_KEY = 
-
-    SOLRQUERY_URL = 
-
-    MONGOALCHEMY_SERVER = 
-    MONGOALCHEMY_USER = 
-    MONGOALCHEMY_PASSWORD = 
-
-    ADSDATA_MONGO_HOST  = 
-
-    LOGGING_LOG_LEVEL = 
-    
-    COOKIE_ADSABS2_NAME = 
-    COOKIE_ADS_CLASSIC_NAME = 
-    COOKIES_CONF = {COOKIE_ADS_CLASSIC_NAME :{
-                         "domain": ("dev.localhost",".dev.localhost"),
-                         "max_age": 31356000
-                         },  
-                     COOKIE_ADSABS2_NAME :{
-                         "domain": ("dev.localhost",".dev.localhost"),
-                         "max_age": 31356000
-                         },  
-                     }
-    
-    RECAPTCHA_PUBLIC_KEY = 
-    RECAPTCHA_PRIVATE_KEY = 
-    
-    ACCOUNT_VERIFICATION_SECRET = 
-    ADS_LOGIN_URL = 
-
-    ADSDATA_MONGO_USER = 
-    ADSDATA_MONGO_PASSWORD = 
-
-    API_SIGNUP_SPREADSHEET_KEY = 
-    API_SIGNUP_SPREADSHEET_LOGIN = 
-
-    METRICS_MONGO_USER = 
-    METRICS_MONGO_PASSWORD = 
-
-    MONGODB_SETTINGS= {"HOST" : "mongodb://", "DB":""}
-
-    ASSETS_DEBUG = 
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
+    DEPLOYMENT_PATH = '/'
+    SOLRQUERY_URL = 'http://localhost:9000/solr/collection1/select'
+    MONGOALCHEMY_USER = "adsabs"
+    MONGOALCHEMY_PASSWORD = 'adsabs'
+    RECAPTCHA_PUBLIC_KEY = 'fake'
+    RECAPTCHA_PRIVATE_KEY = 'fake'
+    FEEDBACK_RECIPIENTS = ['fake@fake.email']
+    ACCOUNT_VERIFICATION_SECRET = 'fake'
+    ADS_LOGIN_URL = 'http://adsabs.harvard.edu/cgi-bin/maint/manage_account/credentials'
+    PAGES_REFRESH_ACCESS_KEY = 'fake'
+    PAGES_REFRESH_ALLOWED_IPS = [u'127.0.0.1',]
+    PAGES_REFRESH_BASE_URL = "http://labs.adsabs.harvard.edu/adsabs"
+    ADSDATA_MONGO_PASSWORD = 'adsdata'
+    API_SIGNUP_SPREADSHEET_KEY = 'fake'
+    API_SIGNUP_SPREADSHEET_LOGIN = ('email@email.fake', 'fake')
+    PRINT_DEBUG_TEMPLATE_PARAM = "debugBeer"
+    PAGES_CONTENT_DIR = "/fake"
+    METRICS_MONGO_HOST = 'localhost'
+    METRICS_MONGO_PASSWORD = "fake"
+    MONGODB_SETTINGS = {'HOST': 'mongodb://adsgut:adsgut@localhost/adsgut', 'DB': 'adsgut'}
+    RECOMMENDER_MONGO_PASSWORD = 'SRru#1ty'
+    THUMBNAIL_MONGO_HOST = 'localhost'
+    THUMBNAIL_MONGO_PORT = 27017
+    THUMBNAIL_MONGO_USER = 'graphics'
+    THUMBNAIL_MONGO_PASSWORD = None
+    IMAGE_PATH = '/fake'
+    STATSD_HOST = "localhost"
+    REDIS_HOST = 'localhost'
+#    DOWN_FOR_MAINTENANCE = True
+#    ASSETS_DEBUG = True
