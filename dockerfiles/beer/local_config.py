@@ -3,7 +3,7 @@ class LocalConfig(object):
     DEBUG = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     DEPLOYMENT_PATH = '/'
-    SOLRQUERY_URL = 'http://localhost:9000/solr/collection1/select'
+    SOLRQUERY_URL = 'http://adsx:8900/solr/collection1/select'
     MONGOALCHEMY_USER = "adsabs"
     MONGOALCHEMY_PASSWORD = 'adsabs'
     RECAPTCHA_PUBLIC_KEY = 'fake'
@@ -14,6 +14,7 @@ class LocalConfig(object):
     PAGES_REFRESH_ACCESS_KEY = 'fake'
     PAGES_REFRESH_ALLOWED_IPS = [u'127.0.0.1',]
     PAGES_REFRESH_BASE_URL = "http://labs.adsabs.harvard.edu/adsabs"
+    ADSDATA_MONGO_USER = 'adsdata'
     ADSDATA_MONGO_PASSWORD = 'adsdata'
     API_SIGNUP_SPREADSHEET_KEY = 'fake'
     API_SIGNUP_SPREADSHEET_LOGIN = ('email@email.fake', 'fake')
@@ -22,11 +23,11 @@ class LocalConfig(object):
     METRICS_MONGO_HOST = 'localhost'
     METRICS_MONGO_PASSWORD = "fake"
     MONGODB_SETTINGS = {'HOST': 'mongodb://adsgut:adsgut@localhost/adsgut', 'DB': 'adsgut'}
-    RECOMMENDER_MONGO_PASSWORD = 'SRru#1ty'
+    RECOMMENDER_MONGO_PASSWORD = 'fake'
     THUMBNAIL_MONGO_HOST = 'localhost'
     THUMBNAIL_MONGO_PORT = 27017
     THUMBNAIL_MONGO_USER = 'graphics'
-    THUMBNAIL_MONGO_PASSWORD = None
+    THUMBNAIL_MONGO_PASSWORD = 'graphics'
     IMAGE_PATH = '/fake'
     STATSD_HOST = "localhost"
     REDIS_HOST = 'localhost'
