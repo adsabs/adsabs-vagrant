@@ -3,7 +3,7 @@
 #If this script is run in the AWS environment, H and shardID will be set by the provisioner. Do not set these manually.
 H=""
 shardId=""
-#Dedicate 80% of the physical ram to the java heap
+#Dedicate some% of the physical ram to the java heap
 ram=`awk '/MemTotal/{print $2}' /proc/meminfo`
 xmx=`python -c "print int($ram/1024.0*0.60)"`
 xms=`python -c "print int($ram/1024.0*0.50)"`
@@ -31,6 +31,7 @@ java \
   -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
+  -Dmontysolr.reuseCache=false \
   -jar start.jar
 else
 java \
@@ -48,5 +49,6 @@ java \
   -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
+  -Dmontysolr.reuseCache=false \
   -jar start.jar
 fi
