@@ -7,3 +7,5 @@ use adsdata
 db.addUser('adsdata','adsdata')
 use adsgut
 db.addUser('adsgut','adsgut')
+use graphics
+db.addUser('graphics','graphics')
