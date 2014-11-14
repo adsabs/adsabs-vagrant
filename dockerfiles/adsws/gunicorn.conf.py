@@ -1,12 +1,16 @@
-import multiprocessing
-bind = "0.0.0.0:6002"
+import multiprocessing,os
+ 
+APP_NAME = 'adsws'
+ 
+bind = "0.0.0.0:80"
+#bind = "unix:/tmp/gunicorn-%s.sock" % APP_NAME
 workers = multiprocessing.cpu_count() * 2 + 1
 max_requests = 200
 preload_app = True
-chdir = '/adsws'
+chdir = os.path.dirname(__file__)
 daemon = True
 debug = False
-errorlog = '/adsws/instance/logs/gunicorn.error.log'
-accesslog = '/adsws/instance/logs/gunicorn.access.log'
-pidfile = '/tmp/gunicorn.pid'
+errorlog = '/tmp/gunicorn-%s.error.log' % APP_NAME
+accesslog = '/tmp/gunicorn-%s.access.log' % APP_NAME
+pidfile = '/tmp/gunicorn-%s.pid' % APP_NAME
 loglevel="info"
