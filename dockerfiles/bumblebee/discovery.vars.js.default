@@ -12,7 +12,7 @@ define([], function() {
     // ajax requests for some sites, eg.
     // localhost:8000
     // adslabs.org
-    apiRoot: '//api.adslabs.org/v1/',
+    apiRoot: '//adsws.elasticbeanstalk.com/v1/',
 
     // to let bumblebee discover oauth access_token at boot time
     // this can be absolute url; or url relative to the api path
@@ -21,7 +21,7 @@ define([], function() {
     // if you want to use pushState
     routerConf: {
       pushState: true,
-      root: '/bumblebee/experimental/',
+      root: '/',
     },
   }
 });
