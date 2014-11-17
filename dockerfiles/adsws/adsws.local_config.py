@@ -14,11 +14,11 @@ SOLR_QTREE_HANDLER = 'http://internal-solr-elb-internal-32738026.us-east-1.elb.a
 SOLR_UPDATE_HANDLER = 'http://internal-solr-elb-internal-32738026.us-east-1.elb.amazonaws.com:8983/solr/update'
 SOLR_TVRH_HANDLER = 'http://internal-solr-elb-internal-32738026.us-east-1.elb.amazonaws.com:8983/solr/tvrh'
 
-CORS_DOMAINS = {
-                'http://adslabs.org': 1,
-                'http://localhost:8000': 1,
-                'http://localhost:6002': 1,
-                }
+CORS_DOMAINS = (
+                'http://adsabs-bumblebee.elasticbeanstalk.com',
+                'http://0.0.0.0:8000',
+                'http://localhost:8000',
+                )
 
 OAUTH2_CACHE_TYPE='simple'
 SECRET_KEY = 'fake'
@@ -31,7 +31,7 @@ SITE_SECURE_URL = 'http://0.0.0.0:5000'
 # Flask-Sqlalchemy: http://packages.python.org/Flask-SQLAlchemy/config.html
 SQLALCHEMY_ECHO = False
 #SQLALCHEMY_DATABASE_URI = 'sqlite:////adsws/adsws.sqlite'
-SQLALCHEMY_DATABASE_URI = ''
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://adsabs:20yoAD$!@adsabs-psql-dev.ci1iae2ep00k.us-east-1.rds.amazonaws.com:5432/adsws'
 
 # Stuff that should be added for every application
 CORE_PACKAGES = []
