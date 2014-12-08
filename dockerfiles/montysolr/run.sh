@@ -32,6 +32,7 @@ java \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
   -Dmontysolr.reuseCache=false \
+  -Dmontysolr.batch.workdir=/data/batch-handler \
   -jar start.jar
 else
 java \
@@ -50,5 +51,6 @@ java \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
   -Dmontysolr.reuseCache=false \
+  -Dmontysolr.batch.workdir=/data/batch-handler \
   -jar start.jar
 fi
