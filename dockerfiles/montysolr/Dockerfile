@@ -11,6 +11,7 @@ ENV ANT_HOME /usr/share/ant
 
 RUN git clone -b master-next https://github.com/romanchyla/montysolr.git /montysolr
 RUN cd /montysolr && ant ivy-bootstrap && ant build-all
+RUN mkdir -p /data/batch-handler
 
 EXPOSE 8983
 
