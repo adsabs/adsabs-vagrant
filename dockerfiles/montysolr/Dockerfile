@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y wget nano supervisor language-pack-en-base subversion git
+RUN apt-get update && apt-get install -y wget nano supervisor language-pack-en-base subversion git curl
 RUN apt-get install -y --no-install-recommends openjdk-7-jdk ant
 RUN update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 RUN update-alternatives --set javac /usr/lib/jvm/java-7-openjdk-amd64/bin/javac
@@ -11,6 +11,11 @@ ENV ANT_HOME /usr/share/ant
 
 RUN git clone -b master-next https://github.com/romanchyla/montysolr.git /montysolr
 RUN cd /montysolr && ant ivy-bootstrap && ant build-all
+
+WORKDIR /montysolr/build/contrib/examples/adsabs/
+RUN curl -L -o author_generate.translit https://DOWNLOAD_URL
+RUN mv author_generate.translit solr/collection1/conf/author_generated.translit
+
 RUN mkdir -p /data/batch-handler
 
 EXPOSE 8983
