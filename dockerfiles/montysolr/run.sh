@@ -23,6 +23,8 @@ java \
   -Xmx${xmx}m \
   -Xms${xms}m \
   -DnumShards=1 \
+  -DzkClientTimeout=95000 \
+  -Dorg.eclipse.jetty.server.Request.maxFormContentSize=9000000 \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dsolr.data.dir=/data \
   -Dpython.path=$JYTHONPATH \
@@ -38,6 +40,8 @@ java \
   -Xmx${xmx}m \
   -Xms${xms}m \
   -Dhost=$H \
+  -DzkClientTimeout=95000 \
+  -Dorg.eclipse.jetty.server.Request.maxFormContentSize=9000000 \
   -DshardId=$shardId \
   -Dshard=$shardId \
   -Dsolr.data.dir=/data \
