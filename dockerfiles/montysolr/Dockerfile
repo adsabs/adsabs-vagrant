@@ -13,8 +13,7 @@ RUN git clone -b master-next https://github.com/romanchyla/montysolr.git /montys
 RUN cd /montysolr && ant ivy-bootstrap && ant build-all
 
 WORKDIR /montysolr/build/contrib/examples/adsabs/
-RUN curl -L -o author_generate.translit https://DOWNLOAD_URL
-RUN mv author_generate.translit solr/collection1/conf/author_generated.translit
+ADD zkcli.sh scripts/cloud-scripts/zkcli.sh
 
 RUN mkdir -p /data/batch-handler
 
