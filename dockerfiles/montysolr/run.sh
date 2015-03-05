@@ -29,12 +29,16 @@ java \
   -Dsolr.data.dir=/data \
   -Dpython.path=$JYTHONPATH \
   -Djetty.home=$HOMEDIR \
-  -Dbootstrap_confdir=$HOMEDIR/solr/collection1/conf \
-  -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
   -Dmontysolr.reuseCache=false \
   -Dmontysolr.batch.workdir=/data/batch-handler \
+  -XX:+UseG1GC \
+  -XX:+ParallelRefProcEnabled \
+  -XX:+PrintGC \
+  -XX:+PrintGCDetails \
+  -XX:+PrintGCTimeStamps \
+  -Xloggc:$HOMEDIR/logs/mem.log \
   -jar start.jar
 else
 java \
@@ -50,11 +54,15 @@ java \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dpython.path=$JYTHONPATH \
   -Djetty.home=$HOMEDIR \
-  -Dbootstrap_confdir=$HOMEDIR/solr/collection1/conf \
-  -Dcollection.configName=adsabs_solr_config \
   -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
   -Dmontysolr.reuseCache=false \
   -Dmontysolr.batch.workdir=/data/batch-handler \
+  -XX:+UseG1GC \
+  -XX:+ParallelRefProcEnabled \
+  -XX:+PrintGC \
+  -XX:+PrintGCDetails \
+  -XX:+PrintGCTimeStamps \
+  -Xloggc:$HOMEDIR/logs/mem.log \
   -jar start.jar
 fi
