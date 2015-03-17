@@ -22,14 +22,11 @@ then
 java \
   -Xmx${xmx}m \
   -Xms${xms}m \
-  -DnumShards=1 \
-  -DzkClientTimeout=95000 \
   -Dorg.eclipse.jetty.server.Request.maxFormContentSize=9000000 \
   -Dsolr.solr.home=$HOMEDIR/solr \
   -Dsolr.data.dir=/data \
   -Dpython.path=$JYTHONPATH \
   -Djetty.home=$HOMEDIR \
-  -DzkHost=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181 \
   -Djute.maxbuffer=100000000 \
   -Dmontysolr.reuseCache=false \
   -Dmontysolr.batch.workdir=/data/batch-handler \

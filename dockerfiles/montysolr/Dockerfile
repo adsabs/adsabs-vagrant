@@ -15,7 +15,9 @@ RUN cd /montysolr && git checkout --force `git describe --tags $(git rev-list --
 RUN cd /montysolr && ant ivy-bootstrap && ant build-all
 
 WORKDIR /montysolr/build/contrib/examples/adsabs/
-ADD zkcli.sh scripts/cloud-scripts/zkcli.sh
+ADD zkcli.sh /montysolr/build/contrib/examples/adsabs/scripts/cloud-scripts/zkcli.sh
+ADD author_generated.translit /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/author_generated.translit
+ADD solrconfig.xml /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/solrconfig.xml
 
 RUN mkdir -p /data/batch-handler
 
