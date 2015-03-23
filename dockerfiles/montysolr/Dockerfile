@@ -10,9 +10,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 ENV ANT_HOME /usr/share/ant
 
 RUN git clone https://github.com/romanchyla/montysolr.git /montysolr
+ADD checkout_tag.sh /montysolr/checkout_tag.sh
 WORKDIR /montysolr
-RUN git checkout --force master && git fetch --tags
-RUN git checkout --force `git describe --tags $(git rev-list --tags --max-count=1)`
+RUN bash checkout_tag.sh #Responsible for checking out the correct tag
 RUN ant ivy-bootstrap && ant build-all
 
 WORKDIR /montysolr/build/contrib/examples/adsabs/
@@ -20,9 +20,9 @@ ADD zkcli.sh /montysolr/build/contrib/examples/adsabs/scripts/cloud-scripts/zkcl
 ADD author_generated.translit /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/author_generated.translit
 ADD solrconfig.xml /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/solrconfig.xml
 
-RUN mkdir -p /data/batch-handler
-
 EXPOSE 8983
+VOLUME /data
+RUN mkdir -p /data/batch-handler
 
 #Supervisord will take care of keeping services up
 ADD supervisord.conf /etc/supervisor/supervisord.conf
