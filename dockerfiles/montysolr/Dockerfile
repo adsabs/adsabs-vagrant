@@ -10,9 +10,10 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 ENV ANT_HOME /usr/share/ant
 
 RUN git clone https://github.com/romanchyla/montysolr.git /montysolr
-RUN cd /montysolr && git checkout --force master && git fetch --tags
-RUN cd /montysolr && git checkout --force `git describe --tags $(git rev-list --tags --max-count=1)`
-RUN cd /montysolr && ant ivy-bootstrap && ant build-all
+WORKDIR /montysolr
+RUN git checkout --force master && git fetch --tags
+RUN git checkout --force `git describe --tags $(git rev-list --tags --max-count=1)`
+RUN ant ivy-bootstrap && ant build-all
 
 WORKDIR /montysolr/build/contrib/examples/adsabs/
 ADD zkcli.sh /montysolr/build/contrib/examples/adsabs/scripts/cloud-scripts/zkcli.sh
