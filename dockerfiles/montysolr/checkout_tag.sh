@@ -1,9 +1,9 @@
 #!/bin/bash
 TAG=""
 
-if [ -z "$TAG" ];
+if [ -z "$TAG" ] || [ $TAG == "LATEST" ];
 then
-  echo "TAG not set; checking out latest tag:"
+  echo "checking out latest tag:"
   TAG=`git describe --tags $(git rev-list --tags --max-count=1)`
   echo $TAG
 else
