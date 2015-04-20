@@ -58,9 +58,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
     config.vm.synced_folder ".", "/vagrant/adsabs-vagrant"
-    config.vm.synced_folder "~/ADSimportpipeline/", "/vagrant/ADSimportpipeline"
-    config.vm.synced_folder "~/adsws/", "/vagrant/adsws"
-    config.vm.synced_folder "~/adsabs-webservices-blueprint", "/vagrant/adsabs-webservices-blueprint"
+    #config.vm.synced_folder "~/ADSimportpipeline/", "/vagrant/ADSimportpipeline"
+    #config.vm.synced_folder "~/adsws/", "/vagrant/adsws"
+    #config.vm.synced_folder "~/adsabs-webservices-blueprint", "/vagrant/adsabs-webservices-blueprint"
 
 
   config.vm.provision :puppet do |puppet|
