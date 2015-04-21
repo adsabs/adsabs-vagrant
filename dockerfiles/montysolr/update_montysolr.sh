@@ -66,7 +66,7 @@ upgrade_localhost () {
     done
 }
 
-# Rolls back the container and config to the LAST_TAG
+# Rolls back the config to LAST_TAG
 rollback_config () {
     pushd /montysolr
         echo $LAST_TAG > latest_tag.txt
@@ -87,8 +87,8 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
 
     # Identify the remote peer that is also a solr searcher
     CLOUDID=`python27 aws_provisioner.py --get-instance-tag cloudid`
-    $PARTNER_IP=`python27 aws_provisioner.py --find-partner-instance-private-ip "cloudid:$CLOUDID"` #TODO: implement
-    if [ -z $PARTNER_IP]; then
+    PARTNER_IP=`python27 aws_provisioner.py --find-partner-instance-private-ip "cloudid:$CLOUDID"`
+    if [ -z "$PARTNER_IP" ]; then
         echo `date` " Could not find a partner with cloudid:$CLOUDID. Abort" >> /tmp/deployments.log
         rollback_config
         exit 1
