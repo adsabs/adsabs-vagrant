@@ -64,6 +64,7 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
     (crontab -l ; echo "*/30 * * * * /adsabs-vagrant/dockerfiles/montysolr/update_montysolr.sh") | crontab
 popd
 
+# Install logstash-forwarder
 install_lsf
 
 # notes
