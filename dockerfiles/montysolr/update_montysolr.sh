@@ -43,7 +43,7 @@ download_config () {
 upgrade_localhost () {
     docker stop montysolr
     docker rm montysolr
-    docker run -d --name montysolr -p 8983:8983 -v /data:/data --restart=on-failure:3 adsabs/montysolr:$TAG
+    docker run -d --name montysolr -p 8983:8983 -v /data:/data -v /tmp/:/montysolr/build/contrib/examples/adsabs/logs/ --restart=on-failure:3 adsabs/montysolr:$TAG
     counter_localhost=0
     while true; do
         STATUS_LOCALHOST=`curl -I -m 3 "http://localhost:8983/solr/select?q=star&rows=1&fl=id" | head -n 1 | cut -d$' ' -f2`
@@ -58,7 +58,7 @@ upgrade_localhost () {
         echo `date` " upgrade_localhost failure: unresponsive > 900s. Init rollback to $LAST_TAG" >> /tmp/deployments.log
         docker stop montysolr
         docker rm montysolr
-        docker run -d --name montysolr -p 8983:8983 -v /data:/data --restart=on-failure:3 adsabs/montysolr:$LAST_TAG
+        docker run -d --name montysolr -p 8983:8983 -v /data:/data -v /tmp/:/montysolr/build/contrib/examples/adsabs/logs/ --restart=on-failure:3 adsabs/montysolr:$LAST_TAG
         echo `date` " rollback container to $LAST_TAG complete" >> /tmp/deployments.log
         rollback_config
         exit 1

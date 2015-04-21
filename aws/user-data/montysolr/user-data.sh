@@ -52,7 +52,7 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
     download_config
     service docker start
     docker build -t adsabs/montysolr:$TAG .
-    docker run -d --name montysolr -p 8983:8983 -v /data:/data --restart=on-failure:3 adsabs/montysolr:$TAG
+    docker run -d --name montysolr -p 8983:8983 -v /data:/data -v /tmp/:/montysolr/build/contrib/examples/adsabs/logs/ --restart=on-failure:3 adsabs/montysolr:$TAG
     (crontab -l ; echo "*/30 * * * 1-5 /adsabs-vagrant/dockerfiles/montysolr/update_montysolr.sh") | crontab
 popd
 
