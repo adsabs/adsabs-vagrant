@@ -86,8 +86,10 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
     git checkout checkout_tag.sh
 
     # Identify the remote peer that is also a solr searcher
-    CLOUDID=`python27 aws_provisioner.py --get-instance-tag cloudid`
-    PARTNER_IP=`python27 aws_provisioner.py --find-partner-instance-private-ip "cloudid:$CLOUDID"`
+    pushd /adsabs-aws/
+        CLOUDID=`python27 aws_provisioner.py --get-instance-tag cloudid`
+        PARTNER_IP=`python27 aws_provisioner.py --find-partner-instance-private-ip "cloudid:$CLOUDID"`
+    popd
     if [ -z "$PARTNER_IP" ]; then
         echo `date` " Could not find a partner with cloudid:$CLOUDID. Abort" >> /tmp/deployments.log
         rollback_config
