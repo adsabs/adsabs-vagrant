@@ -7,8 +7,8 @@ pip-2.7 install boto
 # with the suffix .$TAG. If no file is downloaded, default
 # to the base filename
 download_config () {
-    FILE_LIST = "author_generated.translit solrconfig.xml"
-    for FILE in FILE_LIST;
+    FILE_LIST="author_generated.translit solrconfig.xml"
+    for FILE in $FILE_LIST;
     do
         aws s3 cp s3://adsabs-montysolr-etc/$FILE.$TAG $FILE
         if [ ! -f $FILE ]; then
@@ -41,6 +41,9 @@ git clone https://github.com/adsabs/adsabs-aws /adsabs-aws
 pushd /adsabs-aws
     CLOUDID=`python27 aws_provisioner.py --get-instance-tag cloudid`
     python27 aws_provisioner.py --ebs "cloudid:$CLOUDID"
+    if [ -f "/data/index/write.lock" ]; then
+        rm /data/index/write.lock
+    fi
 popd
 
 git clone https://github.com/adsabs/adsabs-vagrant /adsabs-vagrant
