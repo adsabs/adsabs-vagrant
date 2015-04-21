@@ -35,6 +35,14 @@ get_git_tag () {
     popd
 }
 
+# Install logstash-forwarder container
+install_lsf () {
+    pushd /tmp/
+    aws s3 cp s3://adsabs-elk-etc/logstash-forwarder_user-data.sh
+    bash logstash-forwarder_user-data.sh
+    popd
+}
+
 
 # Find this instance's cloudid and attach the EBS associated with this cloudid
 git clone https://github.com/adsabs/adsabs-aws /adsabs-aws
@@ -56,8 +64,8 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
     (crontab -l ; echo "*/30 * * * * /adsabs-vagrant/dockerfiles/montysolr/update_montysolr.sh") | crontab
 popd
 
-
-
+# Install logstash-forwarder
+install_lsf
 
 # notes
 #amzn-ami-hvm-2015.03.0.x86_64-gp2 (ami-1ecae776) #docker build breaks on jcc
