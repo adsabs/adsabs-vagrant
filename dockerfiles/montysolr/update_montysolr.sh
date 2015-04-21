@@ -18,7 +18,7 @@ get_git_tag () {
         fi
 
         echo $TAG > latest_tag.txt
-        echo `date` " Found $TAG" >> /tmp/deployments.log
+        echo `date` " Found new latest tag $TAG" >> /tmp/deployments.log
     popd
 }
 
@@ -31,6 +31,7 @@ download_config () {
     do
         aws s3 cp s3://adsabs-montysolr-etc/$FILE.$TAG $FILE
         if [ ! -f $FILE ]; then
+            echo `date` " No $FILE.$TAG found. Defaulting to $FILE" >> /tmp/deployments.log
             aws s3 cp s3://adsabs-montysolr-etc/$FILE $FILE
         fi
     done
@@ -54,12 +55,27 @@ upgrade_localhost () {
     sleep 30
     counter_localhost=$((counter_localhost+1))
     if [[ $counter_localhost -gt 30 ]]; then # Rollback if we've polled for 900s without success
+        echo `date` " upgrade_localhost failure: unresponsive > 900s. Init rollback to $LAST_TAG" >> /tmp/deployments.log
         docker stop montysolr
         docker rm montysolr
         docker run -d --name montysolr -p 8983:8983 -v /data:/data --restart=on-failure:3 adsabs/montysolr:$LAST_TAG
+        echo `date` " rollback container to $LAST_TAG complete" >> /tmp/deployments.log
+        rollback_config
         exit 1
     fi
     done
+}
+
+# Rolls back the container and config to the LAST_TAG
+rollback_config () {
+    pushd /montysolr
+        echo $LAST_TAG > latest_tag.txt
+        TAG=$LAST_TAG
+    popd
+    pushd /adsabs-vagrant/dockerfiles/montysolr
+        download_config
+    popd
+    echo `date` " rollback config to $LAST_TAG complete" >> /tmp/deployments.log
 }
 
 pushd /adsabs-vagrant/dockerfiles/montysolr
@@ -87,6 +103,8 @@ pushd /adsabs-vagrant/dockerfiles/montysolr
         sleep 30
         counter_partner=$((counter_partner+1))
         if [[ $counter_partner -gt 30 ]]; then # Don't attempt a local upgrade if the partner is unresponsive for 900s
+            echo `date` " Waited >900s for remote partner $PARTNER_IP to becomes responsive. Abort." >> /tmp/deployments.log
+            rollback_config
             exit 1
         fi
     done
