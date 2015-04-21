@@ -28,7 +28,7 @@ get_git_tag () {
     pushd /montysolr
         git fetch --tags
         TAG=`git describe --tags $(git rev-list --tags --max-count=1)`
-        if [ ! -d latest_tag.txt ]; then
+        if [ ! -f "latest_tag.txt" ]; then
             echo $TAG > latest_tag.txt
             echo `date` " Found $TAG" >> /tmp/deployments.log
         fi
