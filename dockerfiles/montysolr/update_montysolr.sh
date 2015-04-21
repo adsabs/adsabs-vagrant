@@ -11,7 +11,7 @@ get_git_tag () {
         LAST_TAG=`cat latest_tag.txt`
 
         TAG_MINOR=`python -c "s='$TAG';sp=s.split('.');print '.'.join(sp[1:])"`
-        LAST_TAG_MINOR=`python -c "s='$TAG';sp=s.split('.');print '.'.join(sp[1:])"`
+        LAST_TAG_MINOR=`python -c "s='$LAST_TAG';sp=s.split('.');print '.'.join(sp[1:])"`
 
         if [ "$TAG_MINOR" == "$LAST_TAG_MINOR" ]; then
             exit 0
@@ -26,8 +26,8 @@ get_git_tag () {
 # with the suffix `.$TAG`. If no file is downloaded, default
 # to the base filename
 download_config () {
-    FILE_LIST = "author_generated.translit solrconfig.xml"
-    for FILE in FILE_LIST;
+    FILE_LIST="author_generated.translit solrconfig.xml"
+    for FILE in $FILE_LIST;
     do
         aws s3 cp s3://adsabs-montysolr-etc/$FILE.$TAG $FILE
         if [ ! -f $FILE ]; then
