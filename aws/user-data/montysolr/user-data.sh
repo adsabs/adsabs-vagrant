@@ -38,7 +38,7 @@ get_git_tag () {
 # Install logstash-forwarder container
 install_lsf () {
     pushd /tmp/
-    aws s3 cp s3://adsabs-elk-etc/logstash-forwarder_user-data.sh
+    aws s3 cp s3://adsabs-elk-etc/logstash-forwarder_user-data.sh logstash-forwarder_user-data.sh
     bash logstash-forwarder_user-data.sh
     popd
 }
