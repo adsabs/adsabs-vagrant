@@ -10,8 +10,8 @@ get_git_tag () {
         TAG=`git describe --tags $(git rev-list --tags --max-count=1)`
         LAST_TAG=`cat latest_tag.txt`
 
-        TAG_MINOR=`python -c "s='$TAG';sp=s.split('.');print '.'.join(sp[1:])"`
-        LAST_TAG_MINOR=`python -c "s='$LAST_TAG';sp=s.split('.');print '.'.join(sp[1:])"`
+        TAG_MINOR=`python -c "s='$TAG';sp=s.split('.');print '.'.join(sp[3:])"`
+        LAST_TAG_MINOR=`python -c "s='$LAST_TAG';sp=s.split('.');print '.'.join(sp[3:])"`
 
         if [ "$TAG_MINOR" == "$LAST_TAG_MINOR" ]; then
             exit 0
