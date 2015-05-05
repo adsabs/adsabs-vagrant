@@ -1,8 +1,9 @@
+#!/bin/bash
+
 ###
 # This script is responsible for checking out a tag from a git repo
 ###
 
-#!/bin/bash
 TAG=""
 
 if [ -z "$TAG" ] || [ $TAG == "LATEST" ];

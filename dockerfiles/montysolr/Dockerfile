@@ -1,6 +1,6 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y wget nano supervisor language-pack-en-base subversion git curl
+RUN apt-get update && apt-get install -y wget nano supervisor language-pack-en-base subversion git curl psmisc
 RUN apt-get install -y --no-install-recommends openjdk-7-jdk ant
 RUN update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 RUN update-alternatives --set javac /usr/lib/jvm/java-7-openjdk-amd64/bin/javac
@@ -25,5 +25,6 @@ RUN mkdir -p /data/batch-handler
 
 #Supervisord will take care of keeping services up
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY healthcheck.sh /montysolr/build/contrib/examples/adsabs/healthcheck.sh
 COPY run.sh /montysolr/build/contrib/examples/adsabs/run.sh
 CMD ["/usr/bin/supervisord"]
