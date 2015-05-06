@@ -3,7 +3,7 @@
 ## The solr processes; assume supervisord will restart them as well as this script if that
 ## is done
 
-sleep 30 # Sleep some time before entering the mainloop to give solr time to start
+sleep 60 # Sleep some time before entering the mainloop to give solr time to start
 counter=0
 while true; do
     STATUS=`curl -I -m 2 "http://localhost:8983/" | head -n 1 | cut -d$' ' -f2`
