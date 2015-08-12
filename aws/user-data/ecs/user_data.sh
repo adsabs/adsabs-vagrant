@@ -3,9 +3,13 @@
 # Every instance in a cluster should have consul-agent, registrator, and logstash-forwarder 
 # running on it.
 
+echo "ECS_CLUSTER=staging" > /etc/ecs/ecs.config
+service docker restart
+docker stop ecs-agent
+docker start ecs-agent
+
 IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4 | tr -d '\n'`
 BRIDGE_IP="$(ip ro | awk '/docker0/{print $9}')"
-service docker start
 
 docker run -d \
     --name consul  \
