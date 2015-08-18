@@ -4,12 +4,17 @@
 # running on it.
 
 echo "ECS_CLUSTER=staging" > /etc/ecs/ecs.config
-service docker restart
-docker stop ecs-agent
-docker start ecs-agent
-
 IP=`curl http://169.254.169.254/latest/meta-data/local-ipv4 | tr -d '\n'`
 BRIDGE_IP="$(ip ro | awk '/docker0/{print $9}')"
+
+service docker restart
+
+# This will remove the ability to query route53
+#echo "prepend  domain-name-servers $BRIDGE_IP;" >> /etc/dhcp/dhclient.conf
+#dhclient -r; dhclient
+
+docker stop ecs-agent
+docker start ecs-agent
 
 docker run -d \
     --name consul  \
@@ -37,5 +42,5 @@ docker run -d \
     --name registrator \
     -v /var/run/docker.sock:/tmp/docker.sock \
     --restart=always \
-    -h $HOSTNAME \
-    gliderlabs/registrator consul://$IP:8500
+    --hostname=$HOSTNAME \
+    gliderlabs/registrator -ip $IP -resync 10 consul://$IP:8500
