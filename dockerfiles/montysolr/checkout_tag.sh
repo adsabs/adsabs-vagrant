@@ -15,4 +15,7 @@ else
   echo "TAG was set to $TAG"
 fi
 
-git checkout $TAG
+git fetch
+git fetch --tags
+
+git checkout "$TAG"
