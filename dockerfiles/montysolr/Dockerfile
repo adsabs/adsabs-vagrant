@@ -17,7 +17,8 @@ RUN ant ivy-bootstrap && ant build-all
 
 WORKDIR /montysolr/build/contrib/examples/adsabs/
 COPY author_generated.translit /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/author_generated.translit
-COPY solrconfig.xml /montysolr/build/contrib/examples/adsabs/solr/collection1/conf/solrconfig.xml
+COPY turn-into-slave.py turn-into-slave.py
+RUN python turn-into-slave.py
 
 EXPOSE 8983
 VOLUME /data

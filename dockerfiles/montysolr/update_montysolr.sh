@@ -26,7 +26,7 @@ get_git_tag () {
 # with the suffix `.$TAG`. If no file is downloaded, default
 # to the base filename
 download_config () {
-    FILE_LIST="author_generated.translit solrconfig.xml"
+    FILE_LIST="author_generated.translit"
     for FILE in $FILE_LIST;
     do
         aws s3 cp s3://adsabs-montysolr-etc/$FILE.$TAG $FILE
